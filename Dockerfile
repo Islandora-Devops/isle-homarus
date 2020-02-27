@@ -38,11 +38,12 @@ RUN curl https://raw.githubusercontent.com/composer/getcomposer.org/$COMPOSER_HA
     rm composer-setup.php && \
     rm -rf /var/www/html/* && \
     git clone -b $HOMARUS_BRANCH https://github.com/Islandora/Crayfish.git /var/www/html && \
+    cp /var/www/html/Homarus/cfg/config.example.yaml /var/www/html/Homarus/cfg/config.yaml && \
     composer install -d /var/www/html/Homarus && \
     chown -Rv www-data:www-data /var/www/html && \
     mkdir /var/log/islandora && \
     chown www-data:www-data /var/log/islandora && \
-    sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/html\/Homarus\/public/' /etc/apache2/sites-enabled/000-default.conf
+    sed -i 's/DocumentRoot \/var\/www\/html/DocumentRoot \/var\/www\/html\/Homarus\/src/' /etc/apache2/sites-enabled/000-default.conf
 
 ## jwt
 # https://github.com/qadan/documentation/blob/installation/docs/installation/manual/configuring_drupal.md 
