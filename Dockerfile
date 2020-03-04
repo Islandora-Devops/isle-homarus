@@ -24,6 +24,8 @@ RUN FFMPEG_PACKS="ffmpeg" && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+COPY rootfs /
+
 # Composer & Homarus
 # @see: Composer https://github.com/composer/getcomposer.org/commits/master (replace hash below with most recent hash)
 # @see: Homarus https://github.com/Islandora/Crayfish
@@ -74,9 +76,7 @@ ENTRYPOINT ["docker-php-entrypoint"]
 
 STOPSIGNAL SIGWINCH
 
-COPY rootfs /
-
 WORKDIR /opt/crayfish/Homarus/
 
-EXPOSE 80
+EXPOSE 8000
 CMD ["apache2-foreground"]
