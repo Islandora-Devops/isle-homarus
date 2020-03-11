@@ -6,7 +6,8 @@ RUN GEN_DEP_PACKS="software-properties-common \
     gnupg \
     zip \
     unzip \
-    git" && \
+    git \
+    gettext-base" && \
     echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
     apt-get update && \
     apt-get install --no-install-recommends -y $GEN_DEP_PACKS && \
@@ -30,6 +31,9 @@ COPY rootfs /
 # @see: Composer https://github.com/composer/getcomposer.org/commits/master (replace hash below with most recent hash)
 # @see: Homarus https://github.com/Islandora/Crayfish
 
+ARG HOMARUS_JWT_ADMIN_TOKEN
+ARG HOMARUS_LOG_LEVEL
+
 ENV PATH=$PATH:$HOME/.composer/vendor/bin \
     COMPOSER_ALLOW_SUPERUSER=1 \
     COMPOSER_HASH=${COMPOSER_HASH:-b9cc694e39b669376d7a033fb348324b945bce05} \
@@ -45,19 +49,12 @@ RUN curl https://raw.githubusercontent.com/composer/getcomposer.org/$COMPOSER_HA
     chown -Rv www-data:www-data /opt/crayfish && \
     mkdir /var/log/islandora && \
     chown www-data:www-data /var/log/islandora && \
+    envsubst < /opt/templates/syn-settings.xml.template > /opt/crayfish/Homarus/syn-settings.xml && \
+    envsubst < /opt/templates/config.yaml.template > /opt/crayfish/Houdini/cfg/config.yaml && \
     a2dissite 000-default && \
     #echo "ServerName localhost" | tee /etc/apache2/conf-available/servername.conf && \
     #a2enconf servername && \
     a2enmod rewrite deflate headers expires proxy proxy_http proxy_html proxy_connect remoteip xml2enc cache_disk
-
-## jwt
-# https://github.com/qadan/documentation/blob/installation/docs/installation/manual/configuring_drupal.md 
-
-## syn ?
-# https://github.com/Islandora/Crayfish/blob/dev/Homarus/cfg/config.example.yaml 
-
-## logging ?
-# https://github.com/Islandora/Crayfish/blob/dev/Homarus/cfg/config.example.yaml
 
 ARG BUILD_DATE
 ARG VCS_REF
