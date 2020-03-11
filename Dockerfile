@@ -50,7 +50,7 @@ RUN curl https://raw.githubusercontent.com/composer/getcomposer.org/$COMPOSER_HA
     mkdir /var/log/islandora && \
     chown www-data:www-data /var/log/islandora && \
     envsubst < /opt/templates/syn-settings.xml.template > /opt/crayfish/Homarus/syn-settings.xml && \
-    envsubst < /opt/templates/config.yaml.template > /opt/crayfish/Houdini/cfg/config.yaml && \
+    envsubst < /opt/templates/config.yaml.template > /opt/crayfish/Homarus/cfg/config.yaml && \
     a2dissite 000-default && \
     #echo "ServerName localhost" | tee /etc/apache2/conf-available/servername.conf && \
     #a2enconf servername && \
