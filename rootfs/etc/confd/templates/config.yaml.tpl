@@ -30,7 +30,7 @@ log:
   # Valid log levels are:
   # DEBUG, INFO, NOTICE, WARNING, ERROR, CRITICAL, ALERT, EMERGENCY, NONE
   # log level none won't open logfile
-  level: $HOMARUS_LOG_LEVEL
+  level: {{getv "/homarus/log/level"}}
   file: /var/log/islandora/homarus.log
 
 syn:
