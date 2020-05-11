@@ -1,0 +1,7 @@
+[template]
+src = "syn-settings.xml.tpl"
+dest = "/opt/crayfish/Homarus/syn-settings.xml"
+mode = "0644"
+keys = [
+    "/homarus/jwt/admin/token",
+]
