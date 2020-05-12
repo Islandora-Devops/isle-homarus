@@ -1,4 +1,4 @@
-FROM isle-crayfish-base:latest
+FROM islandora/isle-crayfish-base:latest
 
 ## ffmpeg 
 # @see: https://packages.debian.org/buster/ffmpeg
